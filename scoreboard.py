@@ -4,12 +4,12 @@ FONT = ('Arial', 12, 'bold')
 
 
 class ScoreBoard(Turtle):
-    def __init__(self):
+    def __init__(self, screen_width, screen_height):
         super().__init__()
         self.score = -1
         self.hideturtle()
         self.penup()
-        self.goto(x=-290, y=275)
+        self.goto(x=-(screen_width / 2) + 10, y=(screen_height / 2) - 30)
         self.color('white')
         self.update_score()
 

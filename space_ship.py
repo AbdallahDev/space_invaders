@@ -7,15 +7,18 @@ PARTS_LENGTH = [3, 1.5, 0.25]
 
 
 class SpaceShip(Turtle):
-    def __init__(self):
+    def __init__(self, screen_height, screen_width):
         super().__init__()
+        self.screen_limit = (screen_width / 2) - 50
+        # self.screen_width = screen_width
+        self.initial_ycor = -(screen_height / 2) + 20
         self.parts = []
         self.build_parts()
         self.bullets = []
 
     def build_parts(self):
         """build the spaceship parts"""
-        ycor = -280
+        ycor = self.initial_ycor
         for i in range(3):
             part = SpaceShipPart(length=PARTS_LENGTH[i], ycor=ycor)
             self.parts.append(part)
@@ -27,12 +30,15 @@ class SpaceShip(Turtle):
         self.bullets.append(bullet)
 
     def go_right(self):
-        for part in self.parts:
-            part.goto(y=part.ycor(), x=part.xcor() + 10)
+        if self.parts[0].xcor() < self.screen_limit:
+            # print(self.parts[0].xcor(), (self.screen_width / 2), self.parts[0].xcor() < (self.screen_width / 2) - 50)
+            for part in self.parts:
+                part.goto(y=part.ycor(), x=part.xcor() + 10)
 
     def go_left(self):
-        for part in self.parts:
-            part.goto(y=part.ycor(), x=part.xcor() - 10)
+        if self.parts[0].xcor() > -self.screen_limit:
+            for part in self.parts:
+                part.goto(y=part.ycor(), x=part.xcor() - 10)
 
     # def move_bullets(self):
     #     """move the bullets"""
