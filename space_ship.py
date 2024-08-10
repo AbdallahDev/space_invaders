@@ -9,6 +9,7 @@ PARTS_LENGTH = [3, 1.5, 0.25]
 class SpaceShip(Turtle):
     def __init__(self, screen_height, screen_width):
         super().__init__()
+        self.hideturtle()
         self.screen_limit = (screen_width / 2) - 50
         # self.screen_width = screen_width
         self.initial_ycor = -(screen_height / 2) + 20
