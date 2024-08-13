@@ -7,7 +7,8 @@ class AliensManager:
     def __init__(self, screen_width, screen_height, ships_count=50):
         self.count = ships_count
         self.ships = []
-        self.gather_ships(start_x=-(screen_width / 2) + 380, start_y=(screen_height / 2) - 150)
+        self.gather_ships(start_x=-(screen_width / 2) + 380,
+                          start_y=(screen_height / 2) - 150)
 
     def gather_ships(self, start_x, start_y):
         number_of_rows = int(self.count / 10)

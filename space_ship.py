@@ -1,5 +1,6 @@
 from turtle import Turtle
 
+from brick import Brick
 from bullet import Bullet
 from space_ship_part import SpaceShipPart
 
@@ -12,18 +13,29 @@ class SpaceShip(Turtle):
         self.hideturtle()
         self.screen_limit = (screen_width / 2) - 50
         # self.screen_width = screen_width
-        self.initial_ycor = -(screen_height / 2) + 20
+        # self.initial_ycor = -(screen_height / 2) + 20
+        self.coordinates = []
+        self.set_coordinates(start_y=-(screen_height / 2) + 50)
         self.parts = []
         self.build_parts()
         self.bullets = []
 
+    def set_coordinates(self, start_y):
+        xcor = 0
+        ycor = start_y
+        for i in range(9):
+            if i == 1:
+                xcor = self.coordinates[-1][0] - 20
+                ycor = self.coordinates[-1][1] - 20
+            elif i == 2 or i == 3:
+                xcor = self.coordinates[-1][0] + 20
+            self.coordinates.append((xcor, ycor))
+
     def build_parts(self):
         """build the spaceship parts"""
-        ycor = self.initial_ycor
-        for i in range(3):
-            part = SpaceShipPart(length=PARTS_LENGTH[i], ycor=ycor)
+        for cord in self.coordinates:
+            part = Brick(coordinate=cord)
             self.parts.append(part)
-            ycor += 10
 
     def fire(self):
         """fire a new bullet"""

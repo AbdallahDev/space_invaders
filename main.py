@@ -6,9 +6,9 @@ from aliens_manager import AliensManager
 from defence_manager import DefenceManager
 from scoreboard import ScoreBoard
 from space_ship import SpaceShip
-from wall import Wall
 
-# this represents the screen height, the width will be the double of it
+# this represents the screen height,
+# the width will be the double of it
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = SCREEN_HEIGHT * 2
 BG_COLOR = 'black'
@@ -16,54 +16,88 @@ SCREEN_START_X = 10
 SHIP_SPEED = 0.5
 SLEEP_TIME = 0.001
 
-turtle.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT, startx=SCREEN_START_X)
+turtle.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT,
+             startx=SCREEN_START_X)
 turtle.bgcolor(BG_COLOR)
 turtle.tracer(n=0)
 turtle.colormode(255)
 
-
-def remove_bullet(bullet_obj):
-    # deals with the bullet removing.
-    bullet_obj.reset()
-    bullet_obj.hideturtle()
-    bullet_obj.penup()
-
-
-aliens_manager = AliensManager(screen_height=SCREEN_HEIGHT, screen_width=SCREEN_WIDTH, ships_count=50)
-enemy_ships = aliens_manager.ships
-space_ship = SpaceShip(screen_height=SCREEN_HEIGHT, screen_width=SCREEN_WIDTH)
-bullets = space_ship.bullets
+aliens_manager = AliensManager(screen_height=SCREEN_HEIGHT,
+                               screen_width=SCREEN_WIDTH,
+                               ships_count=50)
+aliens = aliens_manager.ships
+space_ship = SpaceShip(screen_height=SCREEN_HEIGHT,
+                       screen_width=SCREEN_WIDTH)
+space_ship_bullets = space_ship.bullets
 
 turtle.listen()
 turtle.onkeypress(fun=space_ship.go_right, key="Right")
 turtle.onkeypress(fun=space_ship.go_left, key="Left")
 turtle.onkeypress(fun=space_ship.fire, key="space")
 
-scoreboard = ScoreBoard(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
-defence_manager = DefenceManager(screen_width=SCREEN_WIDTH, screen_height=SCREEN_HEIGHT)
+scoreboard = ScoreBoard(screen_width=SCREEN_WIDTH,
+                        screen_height=SCREEN_HEIGHT)
+defence_manager = DefenceManager()
 
 game_on = True
 game_time = 0
+bullet_hit_something = False
+# aliens_bullets = aliens
 while game_on:
-    for bullet in bullets:
+    # aliens shooting
+    if random.randint(0, 150) == 0:
+        random.choice(aliens).fire()
+
+    # i'll loop over the aliens bullets to move them
+    # until they hit something over disappear
+    for alien in aliens:
+        for bullet in alien.bullets:
+            if random.randint(0, 50) > 45:
+                bullet.goto(x=bullet.xcor(),
+                            y=bullet.ycor() - 10)
+            for part in space_ship.parts:
+                if bullet.distance(part) < 10:
+                    alien.bullets.remove(bullet)
+                    bullet.remove_bullet()
+                    game_on = False
+
+    # i'll loop over the spaceship bullets to move them
+    # until they hit something over disappear
+    for bullet in space_ship_bullets:
         bullet.goto(x=bullet.xcor(), y=bullet.ycor() + 10)
-        for ship in enemy_ships:
-            if bullet.distance(ship) < 10:
+        for alien in aliens:
+            # I'll loop over the ships to check if any of them has been
+            # hit by the bullet
+            if bullet.distance(alien) < 10:
                 scoreboard.update_score()
 
                 # here if the bullet hits the alien ship it will disappear
-                bullets.remove(bullet)
-                remove_bullet(bullet)
+                space_ship_bullets.remove(bullet)
+                bullet.remove_bullet()
 
-                ship.reset()
-                ship.penup()
-                ship.goto(x=0, y=310)
-                enemy_ships.remove(ship)
+                alien.reset()
+                alien.penup()
+                alien.goto(x=0, y=310)
+                aliens.remove(alien)
+
+        for wall in defence_manager.walls:
+            # I'll loop over the walls to check if any one of the has been hit by
+            # the bullet.
+            wall.take_hits(bullet)
+            for brick in wall.bricks:
+                if brick.distance(bullet) < 10:
+                    space_ship_bullets.remove(bullet)
+                    bullet.remove_bullet()
+
+                    brick.reset()
+                    brick.hideturtle()
+                    brick.penup()
+                    wall.bricks.remove(brick)
 
         # here if the bullet exceed the screen limits it will disappear
         if bullet.ycor() > SCREEN_HEIGHT / 2:
-            bullets.remove(bullet)
-            remove_bullet(bullet)
+            space_ship_bullets.remove(bullet)
+            bullet.remove_bullet()
 
     turtle.update()
     time.sleep(SLEEP_TIME)
