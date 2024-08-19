@@ -10,5 +10,5 @@ class Brick(Turtle):
         self.shapesize(1)
         self.shape("square")
         self.color('white')
-        print(type(coordinate))
+        # print(type(coordinate))
         self.goto(x=coordinate[0], y=coordinate[1])

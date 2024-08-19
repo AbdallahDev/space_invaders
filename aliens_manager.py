@@ -1,4 +1,10 @@
+import random
+
 from alien import Alien
+
+ATTACK_RANGE_DOWN = 0
+ATTACK_RANGE_UP = 10
+ATTACK_RANGE_CHANCE = 0
 
 
 class AliensManager:
@@ -11,6 +17,7 @@ class AliensManager:
                           start_y=(screen_height / 2) - 150)
 
     def gather_ships(self, start_x, start_y):
+        # creating the ships group
         number_of_rows = int(self.count / 10)
         number_of_ships_per_row = 10
         x_space = 50
@@ -24,3 +31,17 @@ class AliensManager:
                 x += x_space
             x = start_x
             y -= y_space
+
+    def ship_attack(self):
+        # chooses a random ship to shot
+        if (random.randint(ATTACK_RANGE_DOWN, ATTACK_RANGE_UP) ==
+                ATTACK_RANGE_CHANCE):
+            random.choice(self.ships).fire()
+
+    def loop_over_ships(self, space_ship_obj):
+        for ship in self.ships:
+            # todo: I want to make ship fire a bullet if it get a specific random number
+            value = ship.loop_over_bullets(space_ship_obj)
+            if not value:
+                return value
+        return True

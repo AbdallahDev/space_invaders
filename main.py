@@ -45,37 +45,26 @@ bullet_hit_something = False
 # aliens_bullets = aliens
 while game_on:
     # aliens shooting
-    if random.randint(0, 10) == 0:
-        random.choice(aliens).fire()
+    aliens_manager.ship_attack()
 
     # i'll loop over the aliens bullets to move them
     # until they hit something over disappear
-    for alien in aliens:
-        for bullet in alien.bullets:
-            # i'll move the bullet by 10 steps if the chance is 45
-            # in range 0 to 50
-            if random.randint(0, 50) > 45:
-                bullet.goto(x=bullet.xcor(),
-                            y=bullet.ycor() - 10)
-            for part in space_ship.parts:
-                if bullet.distance(part) < 10:
-                    alien.bullets.remove(bullet)
-                    bullet.remove_bullet()
-                    game_on = False
+    game_on = (aliens_manager.
+               loop_over_ships(space_ship_obj=space_ship))
 
-            for wall in defence_manager.walls:
-                # I'll loop over the walls to check if any one of the has been hit by
-                # any bullet from the aliens.
-                wall.take_hits(bullet)
-                for brick in wall.bricks:
-                    if brick.distance(bullet) < 10:
-                        alien.bullets.remove(bullet)
-                        bullet.remove_bullet()
-
-                        brick.reset()
-                        brick.hideturtle()
-                        brick.penup()
-                        wall.bricks.remove(brick)
+    #         for wall in defence_manager.walls:
+    #             # I'll loop over the walls to check if any one of the has been hit by
+    #             # any bullet from the aliens.
+    #             wall.take_hits(bullet)
+    #             for brick in wall.bricks:
+    #                 if brick.distance(bullet) < 10:
+    #                     alien.bullets.remove(bullet)
+    #                     bullet.remove_bullet()
+    #
+    #                     brick.reset()
+    #                     brick.hideturtle()
+    #                     brick.penup()
+    #                     wall.bricks.remove(brick)
 
     # i'll loop over the spaceship bullets to move them
     # until they hit something over disappear

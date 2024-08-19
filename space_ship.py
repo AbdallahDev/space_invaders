@@ -15,7 +15,8 @@ class SpaceShip(Turtle):
         # self.screen_width = screen_width
         # self.initial_ycor = -(screen_height / 2) + 20
         self.coordinates = []
-        self.set_coordinates(start_y=-(screen_height / 2) + 50)
+        self.set_coordinates(start_y=-(screen_height / 2)
+                                     + 50)
         self.parts = []
         self.build_parts()
         self.bullets = []
@@ -53,17 +54,9 @@ class SpaceShip(Turtle):
             for part in self.parts:
                 part.goto(y=part.ycor(), x=part.xcor() - 10)
 
-    # def move_bullets(self):
-    #     """move the bullets"""
-    #     for ship in enemy_ships:
-    #         if bullet.distance(ship) < 10:
-    #             score += 1
-    #             score_board.clear()
-    #             score_board.write(arg=f"Score: {score}")
-    #
-    #             bullet.reset()
-    #             bullet.color("black")
-    #             ship.reset()
-    #             ship.penup()
-    #             ship.goto(x=0, y=310)
-    #             enemy_ships.remove(ship)
+    def loop_parts(self, bullet_obj):
+        for part in self.parts:
+            if part.distance(bullet_obj) < 10:
+                print(bullet_obj.distance(part))
+                return True
+        return False

@@ -1,3 +1,4 @@
+import random
 from turtle import Turtle
 
 
@@ -16,3 +17,8 @@ class Bullet(Turtle):
         self.reset()
         self.hideturtle()
         self.penup()
+
+    def move_bullet(self):
+        random_int = random.randint(0, 50)
+        if random_int > 45:
+            self.goto(x=self.xcor(), y=self.ycor() - 10)
