@@ -13,7 +13,7 @@ SCREEN_HEIGHT = 600
 SCREEN_WIDTH = SCREEN_HEIGHT * 2
 BG_COLOR = 'black'
 SCREEN_START_X = 10
-SHIP_SPEED = 0.5
+# SHIP_SPEED = 0.5
 SLEEP_TIME = 0.001
 
 turtle.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT,
@@ -21,22 +21,22 @@ turtle.setup(width=SCREEN_WIDTH, height=SCREEN_HEIGHT,
 turtle.bgcolor(BG_COLOR)
 turtle.tracer(n=0)
 turtle.colormode(255)
+turtle.listen()
+
+space_ship = SpaceShip(screen_height=SCREEN_HEIGHT,
+                       screen_width=SCREEN_WIDTH)
+turtle.onkeypress(fun=space_ship.go_right, key="Right")
+turtle.onkeypress(fun=space_ship.go_left, key="Left")
+turtle.onkeypress(fun=space_ship.fire, key="space")
 
 aliens_manager = AliensManager(screen_height=SCREEN_HEIGHT,
                                screen_width=SCREEN_WIDTH,
                                ships_count=50)
 aliens = aliens_manager.ships
-space_ship = SpaceShip(screen_height=SCREEN_HEIGHT,
-                       screen_width=SCREEN_WIDTH)
-space_ship_bullets = space_ship.bullets
-
-turtle.listen()
-turtle.onkeypress(fun=space_ship.go_right, key="Right")
-turtle.onkeypress(fun=space_ship.go_left, key="Left")
-turtle.onkeypress(fun=space_ship.fire, key="space")
 
 scoreboard = ScoreBoard(screen_width=SCREEN_WIDTH,
                         screen_height=SCREEN_HEIGHT)
+
 defence_manager = DefenceManager()
 
 game_on = True
@@ -45,7 +45,7 @@ bullet_hit_something = False
 
 while game_on:
     bullets = []
-    bullets.extend(space_ship_bullets)
+    bullets.extend(space_ship.bullets)
     defence_manager.check_walls_hit(bullets_list=bullets)
     space_ship.move_bullets()
 

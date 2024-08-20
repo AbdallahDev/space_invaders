@@ -1,6 +1,6 @@
 from turtle import Turtle
 
-from brick import Brick
+from part import Part
 from bullet import Bullet
 from space_ship_part import SpaceShipPart
 
@@ -12,15 +12,14 @@ class SpaceShip(Turtle):
         super().__init__()
         self.hideturtle()
         self.screen_limit = (screen_width / 2) - 50
-        # self.screen_width = screen_width
-        # self.initial_ycor = -(screen_height / 2) + 20
         self.coordinates = []
         self.set_coordinates(start_y=-(screen_height / 2) + 50)
         self.parts = []
-        self.build_parts()
+        self.build_spaceship()
         self.bullets = []
 
     def set_coordinates(self, start_y):
+        """sets the spaceship parts coordinates"""
         xcor = 0
         ycor = start_y
         for i in range(9):
@@ -31,34 +30,36 @@ class SpaceShip(Turtle):
                 xcor = self.coordinates[-1][0] + 20
             self.coordinates.append((xcor, ycor))
 
-    def build_parts(self):
-        """build the spaceship parts"""
+    def build_spaceship(self):
+        """builds the spaceship from parts"""
         for cord in self.coordinates:
-            part = Brick(coordinate=cord)
+            part = Part(coordinate=cord)
             self.parts.append(part)
 
     def fire(self):
-        """fire a new bullet"""
+        """creates a new bullet"""
         bullet = Bullet(self.parts[0].xcor(), self.parts[0].ycor())
         self.bullets.append(bullet)
-        # self.move_bullets()
+
+    def move_bullets(self):
+        """loops over the spaceship bullets to move them"""
+        for bullet in self.bullets:
+            bullet.move_bullet()
 
     def go_right(self):
+        """moves the spaceship to the right"""
         if self.parts[0].xcor() < self.screen_limit:
             for part in self.parts:
                 part.goto(y=part.ycor(), x=part.xcor() + 9)
 
     def go_left(self):
+        """moves the spaceship to the left"""
         if self.parts[0].xcor() > -self.screen_limit:
             for part in self.parts:
                 part.goto(y=part.ycor(), x=part.xcor() - 9)
 
-    def loop_parts(self, bullet_obj):
-        for part in self.parts:
-            if part.distance(bullet_obj) < 10:
-                return True
-        return False
-
-    def move_bullets(self):
-        for bullet in self.bullets:
-            bullet.move_bullet()
+    # def loop_parts(self, bullet_obj):
+    #     for part in self.parts:
+    #         if part.distance(bullet_obj) < 10:
+    #             return True
+    #     return False
