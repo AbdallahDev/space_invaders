@@ -21,6 +21,10 @@ class Wall(Turtle):
             brick = Brick((cor[0], cor[1]))
             self.bricks.append(brick)
 
-    def take_hits(self, bullet):
+    def check_bricks_hit(self, bullets_list):
         for brick in self.bricks:
-            pass
+            for bullet in bullets_list:
+                if brick.take_hit(bullet_obj=bullet):
+                    self.bricks.remove(brick)
+                    bullet.remove_bullet()
+                    bullets_list.remove(bullet)

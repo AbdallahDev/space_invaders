@@ -26,3 +26,7 @@ class DefenceManager:
         for position in positions:
             wall = Wall(bricks_positions=position)
             self.walls.append(wall)
+
+    def check_walls_hit(self, bullets_list):
+        for wall in self.walls:
+            wall.check_bricks_hit(bullets_list=bullets_list)

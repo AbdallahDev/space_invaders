@@ -15,8 +15,7 @@ class SpaceShip(Turtle):
         # self.screen_width = screen_width
         # self.initial_ycor = -(screen_height / 2) + 20
         self.coordinates = []
-        self.set_coordinates(start_y=-(screen_height / 2)
-                                     + 50)
+        self.set_coordinates(start_y=-(screen_height / 2) + 50)
         self.parts = []
         self.build_parts()
         self.bullets = []
@@ -42,21 +41,24 @@ class SpaceShip(Turtle):
         """fire a new bullet"""
         bullet = Bullet(self.parts[0].xcor(), self.parts[0].ycor())
         self.bullets.append(bullet)
+        # self.move_bullets()
 
     def go_right(self):
         if self.parts[0].xcor() < self.screen_limit:
-            # print(self.parts[0].xcor(), (self.screen_width / 2), self.parts[0].xcor() < (self.screen_width / 2) - 50)
             for part in self.parts:
-                part.goto(y=part.ycor(), x=part.xcor() + 10)
+                part.goto(y=part.ycor(), x=part.xcor() + 9)
 
     def go_left(self):
         if self.parts[0].xcor() > -self.screen_limit:
             for part in self.parts:
-                part.goto(y=part.ycor(), x=part.xcor() - 10)
+                part.goto(y=part.ycor(), x=part.xcor() - 9)
 
     def loop_parts(self, bullet_obj):
         for part in self.parts:
             if part.distance(bullet_obj) < 10:
-                print(bullet_obj.distance(part))
                 return True
         return False
+
+    def move_bullets(self):
+        for bullet in self.bullets:
+            bullet.move_bullet()

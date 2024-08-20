@@ -12,3 +12,13 @@ class Brick(Turtle):
         self.color('white')
         # print(type(coordinate))
         self.goto(x=coordinate[0], y=coordinate[1])
+
+    def take_hit(self, bullet_obj):
+        if self.distance(bullet_obj) < 10:
+            self.remove_brick()
+            return True
+
+    def remove_brick(self):
+        self.reset()
+        self.hideturtle()
+        self.penup()

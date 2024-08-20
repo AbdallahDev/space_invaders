@@ -42,67 +42,70 @@ defence_manager = DefenceManager()
 game_on = True
 game_time = 0
 bullet_hit_something = False
-# aliens_bullets = aliens
+
 while game_on:
-    # aliens shooting
-    aliens_manager.ship_attack()
+    bullets = []
+    bullets.extend(space_ship_bullets)
+    defence_manager.check_walls_hit(bullets_list=bullets)
+    space_ship.move_bullets()
 
-    # i'll loop over the aliens bullets to move them
-    # until they hit something over disappear
-    game_on = (aliens_manager.
-               loop_over_ships(space_ship_obj=space_ship))
+    # bullets = space_ship.bullets+aliens_manager.ships_bullets()
+    # bullets = []
+    # bullets.extend(space_ship.bullets)
+    # bullets.extend(aliens_manager.ships_bullets())
+    # for bullet in bullets:
+    #     # print(bullet.color(), len(bullets))
+    #     pass
+    # if (len(space_ship.bullets) > 0
+    #         or len(aliens_manager.ships_bullets()) > 0):
+    #     bullets.extend(space_ship.bullets)
+    #     bullets.extend(aliens_manager.ships_bullets())
+    # if len(bullets) > 0:
+    #     for bullet in bullets:
+    #         print(bullet.color())
+    #     defence_manager.check_walls_hit(bullets_list=bullets)
 
-    #         for wall in defence_manager.walls:
-    #             # I'll loop over the walls to check if any one of the has been hit by
-    #             # any bullet from the aliens.
-    #             wall.take_hits(bullet)
-    #             for brick in wall.bricks:
-    #                 if brick.distance(bullet) < 10:
-    #                     alien.bullets.remove(bullet)
-    #                     bullet.remove_bullet()
+    # game_on = (
+    #     aliens_manager.loop_over_ships(
+    #         space_ship_obj=space_ship,
+    #         defence_manager_obj=defence_manager,
+    #     ))
+
+    # for bullet in space_ship_bullets:
+    #     bullet.goto(x=bullet.xcor(), y=bullet.ycor() + 10)
+    #     for alien in aliens:
+    #         # I'll loop over the ships to check if any of them has been
+    #         # hit by the bullet
+    #         if bullet.distance(alien) < 10:
+    #             scoreboard.update_score()
     #
-    #                     brick.reset()
-    #                     brick.hideturtle()
-    #                     brick.penup()
-    #                     wall.bricks.remove(brick)
-
-    # i'll loop over the spaceship bullets to move them
-    # until they hit something over disappear
-    for bullet in space_ship_bullets:
-        bullet.goto(x=bullet.xcor(), y=bullet.ycor() + 10)
-        for alien in aliens:
-            # I'll loop over the ships to check if any of them has been
-            # hit by the bullet
-            if bullet.distance(alien) < 10:
-                scoreboard.update_score()
-
-                # here if the bullet hits the alien ship it will disappear
-                space_ship_bullets.remove(bullet)
-                bullet.remove_bullet()
-
-                alien.reset()
-                alien.penup()
-                alien.goto(x=0, y=310)
-                aliens.remove(alien)
-
-        for wall in defence_manager.walls:
-            # I'll loop over the walls to check if any one of the has been hit by
-            # any bullet.
-            # wall.take_hits(bullet)
-            for brick in wall.bricks:
-                if brick.distance(bullet) < 10:
-                    space_ship_bullets.remove(bullet)
-                    bullet.remove_bullet()
-
-                    brick.reset()
-                    brick.hideturtle()
-                    brick.penup()
-                    wall.bricks.remove(brick)
-
-        # here if the bullet exceed the screen limits it will disappear
-        if bullet.ycor() > SCREEN_HEIGHT / 2:
-            space_ship_bullets.remove(bullet)
-            bullet.remove_bullet()
+    #             # here if the bullet hits the alien ship it will disappear
+    #             space_ship_bullets.remove(bullet)
+    #             bullet.remove_bullet()
+    #
+    #             alien.reset()
+    #             alien.penup()
+    #             alien.goto(x=0, y=310)
+    #             aliens.remove(alien)
+    #
+    #     for wall in defence_manager.walls:
+    #         # I'll loop over the walls to check if any one of the has been hit by
+    #         # any bullet.
+    #         # wall.take_hits(bullet)
+    #         for brick in wall.bricks:
+    #             if brick.distance(bullet) < 10:
+    #                 space_ship_bullets.remove(bullet)
+    #                 bullet.remove_bullet()
+    #
+    #                 brick.reset()
+    #                 brick.hideturtle()
+    #                 brick.penup()
+    #                 wall.bricks.remove(brick)
+    #
+    #     # here if the bullet exceed the screen limits it will disappear
+    #     if bullet.ycor() > SCREEN_HEIGHT / 2:
+    #         space_ship_bullets.remove(bullet)
+    #         bullet.remove_bullet()
 
     turtle.update()
     time.sleep(SLEEP_TIME)

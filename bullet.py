@@ -18,7 +18,5 @@ class Bullet(Turtle):
         self.hideturtle()
         self.penup()
 
-    def move_bullet(self):
-        random_int = random.randint(0, 50)
-        if random_int > 45:
-            self.goto(x=self.xcor(), y=self.ycor() - 10)
+    def move_bullet(self, direction=1, speed=10):
+        self.goto(x=self.xcor(), y=self.ycor() + (direction * speed))
