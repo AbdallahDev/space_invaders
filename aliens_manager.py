@@ -3,7 +3,7 @@ import random
 from alien import Alien
 
 ATTACK_RANGE_FROM = 0
-ATTACK_RANGE_TO = 6000
+ATTACK_RANGE_TO = 600
 ATTACK_RANGE_CHANCE = 0
 
 
@@ -34,7 +34,7 @@ class AliensManager:
             x = start_x
             y -= y_space
 
-    def ship_attack(self):
+    def ship_fire(self):
         """chooses a random ship to shoot"""
         if (random.randint(ATTACK_RANGE_FROM,
                            ATTACK_RANGE_TO) ==
@@ -49,12 +49,18 @@ class AliensManager:
                 brick_obj.destroy_part()
                 return True
 
-    def attack(self):
+    def ships_attack(self,
+                     defence_manager_obj,
+                     space_ship_obj, ):
         """loops over the ships to move
         their bullets"""
         for ship in self.ships:
-            self.ship_attack()
+            self.ship_fire()
             ship.move_bullets()
+            if ship.attack(
+                defence_manager_obj,
+                space_ship_obj, ):
+                return True
 
     def ships_bullets(self):
         bullets = []

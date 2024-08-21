@@ -41,16 +41,22 @@ class SpaceShip(Turtle):
             self.parts[0].ycor())
         self.bullets.append(bullet)
 
-    def attack(self, aliens_obj, defence_manager_obj):
+    def attack(self, defence_manager_obj, aliens_obj):
         """it will check if the bullets hit any object
         like the wall or the aliens"""
         for bullet in self.bullets:
-            if aliens_obj.check_ships_hit(bullet):
-                bullet.destroy_bullet()
-                self.bullets.remove(bullet)
             if defence_manager_obj.check_walls_hit(bullet):
                 self.bullets.remove(bullet)
                 bullet.destroy_bullet()
+            if aliens_obj.check_ships_hit(bullet):
+                bullet.destroy_bullet()
+                self.bullets.remove(bullet)
+
+    def check_parts_hit(self, bullet_obj):
+        for part in self.parts:
+            if part.check_hit(bullet_obj):
+                self.parts.remove(part)
+                return True
 
     def move_bullets(self):
         """loops over the spaceship bullets

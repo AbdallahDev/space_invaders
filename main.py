@@ -49,8 +49,15 @@ bullet_hit_something = False
 
 while game_on:
     space_ship.move_bullets()
-    space_ship.attack(aliens_manager, defence_manager)
-    aliens_manager.attack()
+    space_ship.attack(
+        defence_manager,
+        aliens_manager, )
+    if aliens_manager.ships_attack(
+        defence_manager,
+        space_ship,
+    ):
+        scoreboard.game_over()
+        game_on = False
     # defence_manager.check_walls_hit(
     #     spaceship_bullets=space_ship.bullets,
     #     aliens_manager_obj=aliens_manager,
