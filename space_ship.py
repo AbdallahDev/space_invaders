@@ -4,8 +4,6 @@ from part import Part
 from bullet import Bullet
 from space_ship_part import SpaceShipPart
 
-PARTS_LENGTH = [3, 1.5, 0.25]
-
 
 class SpaceShip(Turtle):
     def __init__(self, screen_height, screen_width):
@@ -13,7 +11,8 @@ class SpaceShip(Turtle):
         self.hideturtle()
         self.screen_limit = (screen_width / 2) - 50
         self.coordinates = []
-        self.set_coordinates(start_y=-(screen_height / 2) + 50)
+        self.set_coordinates(
+            start_y=-(screen_height / 2) + 50)
         self.parts = []
         self.build_spaceship()
         self.bullets = []
@@ -38,11 +37,14 @@ class SpaceShip(Turtle):
 
     def fire(self):
         """creates a new bullet"""
-        bullet = Bullet(self.parts[0].xcor(), self.parts[0].ycor())
+        bullet = Bullet(
+            self.parts[0].xcor(),
+            self.parts[0].ycor())
         self.bullets.append(bullet)
 
     def move_bullets(self):
-        """loops over the spaceship bullets to move them"""
+        """loops over the spaceship bullets
+        to move them"""
         for bullet in self.bullets:
             bullet.move_bullet()
 
@@ -50,13 +52,18 @@ class SpaceShip(Turtle):
         """moves the spaceship to the right"""
         if self.parts[0].xcor() < self.screen_limit:
             for part in self.parts:
-                part.goto(y=part.ycor(), x=part.xcor() + 9)
+                part.goto(
+                    y=part.ycor(),
+                    x=part.xcor() + 9)
 
     def go_left(self):
         """moves the spaceship to the left"""
-        if self.parts[0].xcor() > -self.screen_limit:
+        if (self.parts[0].xcor() >
+                -self.screen_limit):
             for part in self.parts:
-                part.goto(y=part.ycor(), x=part.xcor() - 9)
+                part.goto(
+                    y=part.ycor(),
+                    x=part.xcor() - 9)
 
     # def loop_parts(self, bullet_obj):
     #     for part in self.parts:

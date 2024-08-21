@@ -9,6 +9,9 @@ class DefenceManager:
         self.making_defence()
 
     def making_defence(self):
+        # todo: I want to make the walls and its
+        #  bricks dynamic based on
+        #  the screen dimensions
         positions = [
             [
                 (-220, -150), (-200, -150), (-180, -150),
@@ -27,6 +30,17 @@ class DefenceManager:
             wall = Wall(bricks_positions=position)
             self.walls.append(wall)
 
-    def check_walls_hit(self, bullets_list):
+    def check_walls_hit(
+            self,
+            spaceship_bullets,
+            aliens_manager_obj,
+            # aliens_bullets,
+    ):
         for wall in self.walls:
-            wall.check_bricks_hit(bullets_list=bullets_list)
+            wall.check_bricks_hit(
+                spaceship_bullets=
+                spaceship_bullets,
+                aliens_manager_obj=
+                aliens_manager_obj,
+                # aliens_bullets=aliens_bullets,
+            )

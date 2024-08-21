@@ -2,22 +2,25 @@ import random
 
 from alien import Alien
 
-ATTACK_RANGE_DOWN = 0
-ATTACK_RANGE_UP = 5000
+ATTACK_RANGE_FROM = 0
+ATTACK_RANGE_TO = 5000
+# ATTACK_RANGE_TO = 100
 ATTACK_RANGE_CHANCE = 0
 
 
 class AliensManager:
     """Manages the alien ships"""
 
-    def __init__(self, screen_width, screen_height, ships_count=50):
+    def __init__(self, screen_width, screen_height,
+                 ships_count=50):
         self.count = ships_count
         self.ships = []
-        self.gather_ships(start_x=-(screen_width / 2) + 380,
-                          start_y=(screen_height / 2) - 150)
+        self.gather_ships(
+            start_x=-(screen_width / 2) + 380,
+            start_y=(screen_height / 2) - 150)
 
     def gather_ships(self, start_x, start_y):
-        # creating the ships group
+        """creating the ships group"""
         number_of_rows = int(self.count / 10)
         number_of_ships_per_row = 10
         x_space = 50
@@ -33,19 +36,33 @@ class AliensManager:
             y -= y_space
 
     def ship_attack(self):
-        # chooses a random ship to shot
-        if (random.randint(ATTACK_RANGE_DOWN, ATTACK_RANGE_UP) ==
+        """chooses a random ship to shoot"""
+        if (random.randint(ATTACK_RANGE_FROM,
+                           ATTACK_RANGE_TO) ==
                 ATTACK_RANGE_CHANCE):
             random.choice(self.ships).fire()
 
-    def loop_over_ships(self, space_ship_obj, defence_manager_obj):
+    def find_shooter(self, brick_obj):
+        for ship in self.ships:
+            # number_of_bullets = len(ship.bullets)
+            # if number_of_bullets > 0:
+            #     print(
+            #         self.ships.index(ship),
+            #         number_of_bullets)
+            if ship.loop_over_bullets(
+                    brick_obj=brick_obj
+            ):
+                brick_obj.destroy_part()
+                return True
+            # self.ship_attack()
+            # ship.move_bullets()
+
+    def attack(self):
+        """loops over the ships to move
+        their bullets"""
         for ship in self.ships:
             self.ship_attack()
-            value = ship.loop_over_bullets(space_ship_obj,
-                                           defence_manager_obj)
-            if not value:
-                return value
-        return True
+            ship.move_bullets()
 
     def ships_bullets(self):
         bullets = []

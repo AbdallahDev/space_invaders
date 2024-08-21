@@ -12,19 +12,41 @@ class Wall(Turtle):
     def __init__(self, bricks_positions):
         super().__init__()
         self.hideturtle()
-        self.parts = []
+        self.bricks = []
         self.build_wall(bricks_positions)
 
     def build_wall(self, positions):
         coordinates = positions
         for cor in coordinates:
             brick = Part((cor[0], cor[1]))
-            self.parts.append(brick)
+            self.bricks.append(brick)
 
-    def check_bricks_hit(self, bullets_list):
-        for part in self.parts:
-            for bullet in bullets_list:
-                if part.take_hit(bullet_obj=bullet):
-                    self.parts.remove(part)
-                    bullet.remove_bullet()
-                    bullets_list.remove(bullet)
+    def check_bricks_hit(
+            self,
+            spaceship_bullets,
+            aliens_manager_obj,
+            # aliens_bullets,
+    ):
+        for brick in self.bricks:
+            for bullet in spaceship_bullets:
+                # pass
+                if brick.take_hit(
+                        bullet_obj=bullet):
+                    self.bricks.remove(brick)
+                    bullet.destroy_bullet()
+                    spaceship_bullets.remove(bullet)
+            if aliens_manager_obj.find_shooter(
+                    brick_obj=brick
+            ):
+                self.bricks.remove(brick)
+            # for bullet in aliens_bullets:
+            #     if brick.take_hit(
+            #             bullet_obj=bullet):
+            #         self.parts.remove(brick)
+            #         bullet.destroy_bullet()
+
+    def hit_by_alien(self, aliens_bullets_list):
+        pass
+
+    def hit_by_spaceship(self):
+        pass

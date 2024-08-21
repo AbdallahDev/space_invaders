@@ -10,15 +10,20 @@ class Part(Turtle):
         self.shapesize(1)
         self.shape("square")
         self.color('white')
-        # print(type(coordinate))
-        self.goto(x=coordinate[0], y=coordinate[1])
+        self.goto(
+            x=coordinate[0],
+            y=coordinate[1])
 
     def take_hit(self, bullet_obj):
-        if self.distance(bullet_obj) < 10:
-            self.remove_part()
+        if (self.distance(bullet_obj) <
+                10):
+            self.destroy_part()
             return True
 
-    def remove_part(self):
+    # def hit_by_alien(self, aliens_bullets_list):
+    #     pass
+
+    def destroy_part(self):
         self.reset()
         self.hideturtle()
         self.penup()
