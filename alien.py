@@ -62,3 +62,18 @@ class Alien(Turtle):
 
     def remove_bullet(self, bullet):
         self.bullets.remove(bullet)
+
+    def check_hit(self, spaceship_bullets):
+        """check for a hit from the spaceship"""
+        for bullet in spaceship_bullets:
+            if self.distance(bullet) < 10:
+                self.destroy_ship()
+                bullet.destroy_bullet()
+                spaceship_bullets.remove(bullet)
+
+    def destroy_ship(self):
+        """destroys the ship after it takes a hit
+        by a bullet"""
+        self.reset()
+        self.hideturtle()
+        self.penup()

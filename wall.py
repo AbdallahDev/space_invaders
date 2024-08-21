@@ -33,7 +33,7 @@ class Wall(Turtle):
                 if brick.distance(bullet)<10:
                         # brick.take_hit(
                         # bullet_obj=bullet):
-                    brick.take_hit()
+                    brick.destroy_part()
                     self.bricks.remove(brick)
                     bullet.destroy_bullet()
                     spaceship_bullets.remove(bullet)

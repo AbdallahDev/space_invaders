@@ -3,8 +3,7 @@ import random
 from alien import Alien
 
 ATTACK_RANGE_FROM = 0
-ATTACK_RANGE_TO = 500
-# ATTACK_RANGE_TO = 100
+ATTACK_RANGE_TO = 6000
 ATTACK_RANGE_CHANCE = 0
 
 
@@ -52,7 +51,7 @@ class AliensManager:
             if ship.find_shooting_bullet(
                     brick_obj=brick_obj
             ):
-                brick_obj.take_hit()
+                brick_obj.destroy_part()
                 return True
             # self.ship_attack()
             # ship.move_bullets()
@@ -72,3 +71,9 @@ class AliensManager:
                     print(bullet.color())
                 bullets.append(ship.bullets)
             return bullets
+
+    def check_ships_hit(self, spaceship_bullets):
+        """checks if there is any ship took a hit"""
+        for ship in self.ships:
+            if ship.check_hit(spaceship_bullets):
+                self.ships.remove(ship)
