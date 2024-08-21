@@ -20,6 +20,7 @@ class Bullet(Turtle):
         self.reset()
         self.hideturtle()
         self.penup()
+        self.color('red')
 
     def move_bullet(self,
                     direction=1,

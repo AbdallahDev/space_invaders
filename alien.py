@@ -35,14 +35,15 @@ class Alien(Turtle):
                 direction=-1,
                 speed=2)
 
-    def loop_over_bullets(self,
-                          # space_ship_obj,
-                          # defence_manager_obj,
-                          brick_obj
-                          ):
+    def find_shooting_bullet(self,
+                             # space_ship_obj,
+                             # defence_manager_obj,
+                             brick_obj
+                             ):
         for bullet in self.bullets:
             if bullet.distance(brick_obj) < 10:
                 bullet.destroy_bullet()
+                self.bullets.remove(bullet)
                 return True
                 # brick_obj.destroy_part()
             # pass

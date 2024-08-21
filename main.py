@@ -11,7 +11,7 @@ from space_ship import SpaceShip
 # the width will be the double of it
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = SCREEN_HEIGHT * 2
-BG_COLOR = 'black'
+BG_COLOR = 'green'
 SCREEN_START_X = 10
 # SHIP_SPEED = 0.5
 SLEEP_TIME = 0.001

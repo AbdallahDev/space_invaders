@@ -3,7 +3,7 @@ import random
 from alien import Alien
 
 ATTACK_RANGE_FROM = 0
-ATTACK_RANGE_TO = 5000
+ATTACK_RANGE_TO = 500
 # ATTACK_RANGE_TO = 100
 ATTACK_RANGE_CHANCE = 0
 
@@ -49,10 +49,10 @@ class AliensManager:
             #     print(
             #         self.ships.index(ship),
             #         number_of_bullets)
-            if ship.loop_over_bullets(
+            if ship.find_shooting_bullet(
                     brick_obj=brick_obj
             ):
-                brick_obj.destroy_part()
+                brick_obj.take_hit()
                 return True
             # self.ship_attack()
             # ship.move_bullets()

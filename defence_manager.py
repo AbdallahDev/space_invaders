@@ -9,9 +9,6 @@ class DefenceManager:
         self.making_defence()
 
     def making_defence(self):
-        # todo: I want to make the walls and its
-        #  bricks dynamic based on
-        #  the screen dimensions
         positions = [
             [
                 (-220, -150), (-200, -150), (-180, -150),
