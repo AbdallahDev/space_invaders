@@ -2,7 +2,6 @@ from turtle import Turtle
 
 from part import Part
 from bullet import Bullet
-from space_ship_part import SpaceShipPart
 
 
 class SpaceShip(Turtle):
@@ -42,6 +41,17 @@ class SpaceShip(Turtle):
             self.parts[0].ycor())
         self.bullets.append(bullet)
 
+    def attack(self, aliens_obj, defence_manager_obj):
+        """it will check if the bullets hit any object
+        like the wall or the aliens"""
+        for bullet in self.bullets:
+            if aliens_obj.check_ships_hit(bullet):
+                bullet.destroy_bullet()
+                self.bullets.remove(bullet)
+            if defence_manager_obj.check_walls_hit(bullet):
+                self.bullets.remove(bullet)
+                bullet.destroy_bullet()
+
     def move_bullets(self):
         """loops over the spaceship bullets
         to move them"""
@@ -64,9 +74,3 @@ class SpaceShip(Turtle):
                 part.goto(
                     y=part.ycor(),
                     x=part.xcor() - 9)
-
-    # def loop_parts(self, bullet_obj):
-    #     for part in self.parts:
-    #         if part.distance(bullet_obj) < 10:
-    #             return True
-    #     return False

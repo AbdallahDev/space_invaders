@@ -43,18 +43,11 @@ class AliensManager:
 
     def find_shooter(self, brick_obj):
         for ship in self.ships:
-            # number_of_bullets = len(ship.bullets)
-            # if number_of_bullets > 0:
-            #     print(
-            #         self.ships.index(ship),
-            #         number_of_bullets)
             if ship.find_shooting_bullet(
                     brick_obj=brick_obj
             ):
                 brick_obj.destroy_part()
                 return True
-            # self.ship_attack()
-            # ship.move_bullets()
 
     def attack(self):
         """loops over the ships to move
@@ -72,8 +65,9 @@ class AliensManager:
                 bullets.append(ship.bullets)
             return bullets
 
-    def check_ships_hit(self, spaceship_bullets):
+    def check_ships_hit(self, bullet):
         """checks if there is any ship took a hit"""
         for ship in self.ships:
-            if ship.check_hit(spaceship_bullets):
+            if ship.check_hit(bullet):
                 self.ships.remove(ship)
+                return True

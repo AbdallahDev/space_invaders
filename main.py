@@ -11,7 +11,7 @@ from space_ship import SpaceShip
 # the width will be the double of it
 SCREEN_HEIGHT = 600
 SCREEN_WIDTH = SCREEN_HEIGHT * 2
-BG_COLOR = 'DeepSkyBlue'
+BG_COLOR = 'Black'
 SCREEN_START_X = 10
 # SHIP_SPEED = 0.5
 SLEEP_TIME = 0.001
@@ -49,14 +49,14 @@ bullet_hit_something = False
 
 while game_on:
     space_ship.move_bullets()
+    space_ship.attack(aliens_manager, defence_manager)
     aliens_manager.attack()
-    defence_manager.check_walls_hit(
-        spaceship_bullets=space_ship.bullets,
-        aliens_manager_obj=aliens_manager,
-        # aliens_bullets=aliens_manager.ships_bullets(),
-    )
-    aliens_manager.check_ships_hit(
-        space_ship.bullets)
+    # defence_manager.check_walls_hit(
+    #     spaceship_bullets=space_ship.bullets,
+    #     aliens_manager_obj=aliens_manager,
+    # )
+    # aliens_manager.check_ships_hit(
+    #     space_ship.bullets)
 
     turtle.update()
     time.sleep(SLEEP_TIME)

@@ -29,15 +29,18 @@ class DefenceManager:
 
     def check_walls_hit(
             self,
-            spaceship_bullets,
-            aliens_manager_obj,
+            bullet,
+            # spaceship_bullets,
+            # aliens_manager_obj,
             # aliens_bullets,
     ):
         for wall in self.walls:
-            wall.check_bricks_hit(
-                spaceship_bullets=
-                spaceship_bullets,
-                aliens_manager_obj=
-                aliens_manager_obj,
-                # aliens_bullets=aliens_bullets,
-            )
+            if wall.check_bricks_hit(
+                    bullet
+                    # spaceship_bullets=
+                    # spaceship_bullets,
+                    # aliens_manager_obj=
+                    # aliens_manager_obj,
+                    # aliens_bullets=aliens_bullets,
+            ):
+                return True

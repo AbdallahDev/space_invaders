@@ -23,29 +23,25 @@ class Wall(Turtle):
 
     def check_bricks_hit(
             self,
-            spaceship_bullets,
-            aliens_manager_obj,
+            bullet,
+            # spaceship_bullets,
+            # aliens_manager_obj,
             # aliens_bullets,
     ):
         for brick in self.bricks:
-            for bullet in spaceship_bullets:
-                # pass
-                if brick.distance(bullet)<10:
-                        # brick.take_hit(
-                        # bullet_obj=bullet):
-                    brick.destroy_part()
-                    self.bricks.remove(brick)
-                    bullet.destroy_bullet()
-                    spaceship_bullets.remove(bullet)
-            if aliens_manager_obj.find_shooter(
-                    brick_obj=brick
-            ):
+            if brick.check_hit(bullet):
                 self.bricks.remove(brick)
-            # for bullet in aliens_bullets:
-            #     if brick.take_hit(
-            #             bullet_obj=bullet):
-            #         self.parts.remove(brick)
-            #         bullet.destroy_bullet()
+                return True
+        #     for bullet in spaceship_bullets:
+        #         if brick.distance(bullet)<10:
+        #             brick.destroy_part()
+        #             self.bricks.remove(brick)
+        #             bullet.destroy_bullet()
+        #             spaceship_bullets.remove(bullet)
+        #     if aliens_manager_obj.find_shooter(
+        #             brick_obj=brick
+        #     ):
+        #         self.bricks.remove(brick)
 
     def hit_by_alien(self, aliens_bullets_list):
         pass

@@ -36,8 +36,6 @@ class Alien(Turtle):
                 speed=2)
 
     def find_shooting_bullet(self,
-                             # space_ship_obj,
-                             # defence_manager_obj,
                              brick_obj
                              ):
         for bullet in self.bullets:
@@ -45,31 +43,21 @@ class Alien(Turtle):
                 bullet.destroy_bullet()
                 self.bullets.remove(bullet)
                 return True
-                # brick_obj.destroy_part()
-            # pass
-            # if (random.randint(0, 50) >
-            #         45):
-            #     bullet.move_bullet(direction=-1)
-            # if space_ship_obj.loop_parts(
-            #         bullet_obj=bullet):
-            #     bullet.destroy_bullet()
-            #     self.bullets.remove(bullet)
-            #     return False
-            # elif defence_manager_obj.check_walls_hit():
-            #     self.bullets.remove(bullet)
-            #     bullet.remove_bullet()
-        # return True
 
     def remove_bullet(self, bullet):
         self.bullets.remove(bullet)
 
-    def check_hit(self, spaceship_bullets):
+    def check_hit(self, bullet):
         """check for a hit from the spaceship"""
-        for bullet in spaceship_bullets:
-            if self.distance(bullet) < 10:
-                self.destroy_ship()
-                bullet.destroy_bullet()
-                spaceship_bullets.remove(bullet)
+        if self.distance(bullet) < 10:
+            self.destroy_ship()
+            return True
+
+        # for bullet in bullets:
+        #     if self.distance(bullet) < 10:
+        #         self.destroy_ship()
+        #         bullet.destroy_bullet()
+        #         bullets.remove(bullet)
 
     def destroy_ship(self):
         """destroys the ship after it takes a hit

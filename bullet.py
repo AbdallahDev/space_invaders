@@ -30,3 +30,8 @@ class Bullet(Turtle):
             y=self.ycor() +
               (direction * speed)
         )
+
+    def hits(self, obj):
+        if self.distance(obj) < 10:
+            self.destroy_bullet()
+            return True
